@@ -1,0 +1,13 @@
+FROM     centos
+RuN      yum install wget -y
+RUN      wget   -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+RUN      rpm  --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+RUN      yum install jenkins -y
+RUN      yum install java-11-openjdk.x86_64   -y
+EXPOSE   8080
+#COPY     functions      /etc/init.d/functions
+#COPY     jenkins    /etc/rc.d/init.d/jenkins
+#CMD      ./etc/rc.d/init.d/jenkins  start
+
+CMD      java  -jar /usr/lib/jenkins/jenkins.war
+CMD      echo "jenkins       ALL=(ALL)           NOPASSWD: ALL"   >> /etc/sudoers
